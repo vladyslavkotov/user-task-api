@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace testTask.Models;
+namespace UserTaskApi.Models;
 
 [Index(nameof(Name),IsUnique =true)]
 public class User

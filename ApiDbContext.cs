@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UserTaskApi.Models;
 
-namespace testTask.Models;
 
 public class ApiDbContext : DbContext
 {

@@ -1,4 +1,4 @@
-﻿namespace testTask.Models;
+﻿namespace UserTaskApi.Models;
 
 public enum UserTaskState
 {

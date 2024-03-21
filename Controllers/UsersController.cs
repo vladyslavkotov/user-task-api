@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using testTask.Models;
+using UserTaskApi.Dtos;
+using UserTaskApi.Models;
 
-namespace testTask.Controllers;
+namespace UserTaskApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -16,7 +17,7 @@ public class UsersController : ControllerBase
    }
 
    [HttpGet("{name}")]
-   public async Task<ActionResult<UserDTO>> GetUser(string name)
+   public async Task<ActionResult<UserDto>> GetUser(string name)
    {
       var user = await _context.Users.Include(user=>user.UserTasks).SingleOrDefaultAsync(x => x.Name == name);
 
@@ -24,11 +25,11 @@ public class UsersController : ControllerBase
       {
          return NotFound();
       }
-      return new UserDTO(user);
+      return new UserDto(user);
    }
 
    [HttpPost("{name}")]
-   public async Task<ActionResult<UserDTO>> CreateUser(string name)
+   public async Task<ActionResult<UserDto>> CreateUser(string name)
    {
       if (string.IsNullOrEmpty(name))
       {
@@ -43,6 +44,6 @@ public class UsersController : ControllerBase
       var user = new User(name);
       _context.Users.Add(user);
       await _context.SaveChangesAsync();
-      return CreatedAtAction(nameof(CreateUser), new UserDTO(user));
+      return CreatedAtAction(nameof(CreateUser), new UserDto(user));
    }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace testTask.Models;
+namespace UserTaskApi.Models;
 
 [Index(nameof(Description), nameof(State))]
 public class UserTask

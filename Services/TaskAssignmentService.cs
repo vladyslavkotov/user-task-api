@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using testTask.Models;
+using UserTaskApi.Models;
 
-namespace testTask.Services;
+namespace UserTaskApi.Services;
 
 public class TaskAssignmentService : BackgroundService
 {

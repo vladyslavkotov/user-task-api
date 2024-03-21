@@ -1,5 +1,5 @@
-using testTask.Models;
-using testTask.Services;
+using UserTaskApi.Models;
+using UserTaskApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +8,7 @@ builder.Services.AddDbContext<ApiDbContext>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHostedService<TaskAssignmentService>();
+builder.Services.AddScoped<TaskAssignmentService>();
 
 var app = builder.Build();
 
@@ -19,8 +19,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

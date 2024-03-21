@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using testTask.Models;
+using UserTaskApi.Dtos;
+using UserTaskApi.Models;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -14,14 +15,14 @@ public class UserTasksController : ControllerBase
    }
 
    [HttpGet("{status}/{description}")]
-   public async Task<ActionResult<IEnumerable<UserTaskDTO>>> GetUserTask(string status, string description)
+   public async Task<ActionResult<IEnumerable<UserTaskDto>>> GetUserTask(string status, string description)
    {
       if (!Enum.TryParse<UserTaskState>(status.ToLower(), true, out var taskState))
       {
          return BadRequest("Invalid status.");
       }
 
-      var userTasks = await _context.UserTasks.Where(x => x.State == taskState && x.Description.ToLower() == description.ToLower()).Select(x=>new UserTaskDTO(x)).ToListAsync();
+      var userTasks = await _context.UserTasks.Where(x => x.State == taskState && x.Description.ToLower() == description.ToLower()).Select(x=>new UserTaskDto(x)).ToListAsync();
       if (userTasks.Count == 0)
       {  
          return NotFound();
@@ -31,7 +32,7 @@ public class UserTasksController : ControllerBase
    }
 
    [HttpPost("{description}")]
-   public async Task<ActionResult<UserTaskDTO>> CreateUserTask(string description)
+   public async Task<ActionResult<UserTaskDto>> CreateUserTask(string description)
    {
       if (string.IsNullOrEmpty(description))
       {
@@ -51,6 +52,6 @@ public class UserTasksController : ControllerBase
       _context.UserTasks.Add(newTask);
       await _context.SaveChangesAsync();
 
-      return CreatedAtAction(nameof(CreateUserTask), new UserTaskDTO(newTask));
+      return CreatedAtAction(nameof(CreateUserTask), new UserTaskDto(newTask));
    }
 }
